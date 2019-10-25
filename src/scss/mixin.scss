@@ -1,0 +1,48 @@
+$bgColor: #f6f6f6;
+
+$borderColor: #e0e0e0;
+
+$activeColor: #FF6F00;
+
+$titleColor: #333;
+
+$contentColor: #666;
+
+$tipColor: #999;
+
+@mixin btn {
+    display: inline-block;
+    margin: 0.56em 0.83em;
+    border-radius: 2.5em;
+    background: linear-gradient(to right, #FF9747, #FF6D37);
+    box-shadow: 0 0.3em 0.5em 0 rgba(255,102,0,0.3);
+    font-size: 18px; /* px */
+    text-align: center;
+    line-height: 2.5;
+    color: #fff;
+    white-space: nowrap;
+    user-select: none;
+
+    &.no-shadow {
+        box-shadow: none!important;
+    }
+
+    &.disabled {
+        background: linear-gradient(to right, #e1e1e1, #d1d1d1);
+        box-shadow: 0 0.3em 0.5em 0 rgba(136, 136, 136, 0.4);
+    }
+}
+
+@mixin ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@mixin ellipsisLine($line: 2) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+}

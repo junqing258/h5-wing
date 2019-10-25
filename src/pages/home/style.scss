@@ -1,0 +1,29 @@
+
+.page {
+  background-color: #efeff0;
+  width: 750px; 
+  min-height: 100vh;
+  margin: auto;
+  .entra {
+    img { 
+      width: 330px;
+      height: 170px;
+      margin: 12px 9px; 
+     }
+  }
+
+  .banner-inquiry {
+    margin-bottom: 20px;
+    img {
+      width: 100%;
+    }
+  }
+
+  .prod-list {
+    img {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+}
+

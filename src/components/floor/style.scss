@@ -1,0 +1,42 @@
+
+
+
+.floor-header {
+  position: relative;
+  width: 100%;
+  height: 112px;
+  color: #ff6600;
+  background-color: #ffffff;
+  .title-icon {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 34px;
+    background-image: url('../../assets/quick_start/floor_icon.png');
+    width: 6px;
+    height: 35px;
+    background-size: 100% 100%;
+  }
+
+  h2 {
+    position: absolute;
+    display: inline-block;
+    width: 80%;
+    left: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    color: #333333;
+  }
+
+  .right-btns {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 40px;
+    font-size: 28px;
+  }
+
+
+}

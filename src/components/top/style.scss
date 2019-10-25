@@ -1,0 +1,73 @@
+.top-bar {
+  position: relative;
+  height: 90px;
+  width: 100%;
+  color: #ff6600;
+  background-color: #ffffff;
+  .icon-back {
+    position: absolute;
+    top: 50%;
+    left: 40px;
+    transform: translateY(-50%);
+    font-size: 40px;
+    &:before {
+      content: "\E603";
+    }
+  }
+  h2 {
+    position: absolute;
+    display: inline-block;
+    width: 80%;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    font-size: 32px;
+  }
+
+  button {
+    position: relative;
+    vertical-align: middle;
+    color: inherit;
+    outline: none;
+    background: none;
+    border: none;
+    padding: 0;
+    line-height: 0;
+    cursor: pointer;
+    background-repeat: no-repeat;
+  }
+
+  .right-btns {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 40px;
+    
+    .icon-btns {
+      margin: 0 22px;
+    }
+    .icon-msg {
+      background-image: url('../../assets/quick_start/icon_msg.png');
+      width: 40px;
+      height: 40px;
+      background-size: 100% 100%;
+    }
+    .icon-user {
+      background-image: url('../../assets/quick_start/icon_user.png');
+      width: 36px;
+      height: 38px;
+      background-size: 100% 100%;
+    }
+
+    .red-point {
+      position: absolute;
+      top: 0;
+      right: -12px;
+      background-color: #ff0000;
+      width: 12px;
+      height: 12px;
+      border-radius: 6px 6px;
+    }
+  }
+}
