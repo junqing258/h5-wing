@@ -14,13 +14,8 @@ export default function Home() {
   const [visibleModal, setVisibleModal] = useState(false);
   const [time, setTime] = useState(0);
 
-  const openModal = () => {
-    setVisibleModal(true);
-  };
-
-  const closeModal = () => {
-    setVisibleModal(false);
-  };
+  const openModal = () => setVisibleModal(true);
+  const closeModal = () => setVisibleModal(false);
 
   useEffect(() => {
     let c = time;
