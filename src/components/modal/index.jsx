@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NewPortal from '../newPortal';
-import Transition from '../transition';
+// import Transition from '../transition';
+import { CSSTransition } from 'react-transition-group';
 
 import './modal.css';
 
@@ -17,46 +18,58 @@ class Modal extends Component {
   }
 
   componentDidMount() {
-    this.setState({ visible: this.props.visible });
+    // this.setState({ visible: this.props.visible });
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({ visible: props.visible });
+  // componentWillReceiveProps(props) {
+  //   this.setState({ visible: props.visible });
+  // }
+
+  static getDerivedStateFromProps(nextProps, state) {
+    return { visible: nextProps.show };
   }
 
-  closeModal() {
-    console.log('大家好，我叫取消，听说你们想点我？傲娇脸:princess:');
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+  }
+
+
+  openModal() {
+    const { onOpen } = this.props;
+    onOpen && onOpen();
+    this.setState({ visible: true });
+  }
+
+  closeModal() { 
     const { onClose } = this.props;
     onClose && onClose();
     this.setState({ visible: false });
   }
 
   confirm() {
-    console.log('大家好，我叫确认，楼上的取消是我儿子，脑子有点那个~');
     const { confirm } = this.props;
     confirm && confirm();
     this.setState({ visible: false });
   }
 
   maskClick() {
-    console.log('大家好，我是蒙层，我被点击了');
     this.setState({ visible: false });
   }
 
   render() {
     const { visible } = this.state;
+
     const { title, children } = this.props;
     return <NewPortal>
       {/* 引入transition组件，去掉了外层的modal-wrapper */}
-      <Transition
-        visible={visible}
-        transitionName="modal"
-        enterActiveTimeout={200}
-        enterEndTimeout={100}
-        leaveActiveTimeout={100}
-        leaveEndTimeout={200}
+      <CSSTransition
+        in={visible}
+        classNames="alert"
+        timeout={300}
+        // transitionEnterTimeout={200}
+        // transitionLeaveTimeout={200}
       >
-        <div className="modal">
+        <div className={`modal m-${visible? "show": "hide"}`}>
           <div className="modal-title">{title}</div>
           <div className="modal-content">{children}</div>
           <div className="modal-operator">
@@ -70,12 +83,15 @@ class Modal extends Component {
             >确认</button>
           </div>
         </div>
-        {/* 这里的mask也可以用transition组件包裹，添加淡入淡出的过渡效果，这里不再添加 */}
-        {/* <div
-          className="mask"
-          onClick={this.maskClick}
-        ></div> */}
-      </Transition>
+      </CSSTransition>
+      <CSSTransition
+        in={visible}
+        classNames="mask"
+        timeout={300}
+      >
+        <div className={`mask m-${visible? "show": "hide"}`} 
+          onClick={this.maskClick} ></div>
+      </CSSTransition>
     </NewPortal>;
   }
 }

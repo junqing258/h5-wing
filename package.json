@@ -24,6 +24,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.6.0",
+    "@types/react-transition-group": "^4.2.3",
     "antd-mobile": "^2.3.1",
     "blueimp-md5": "^2.10.0",
     "classnames": "^2.2.6",
@@ -34,6 +35,7 @@
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
+    "react-transition-group": "^4.3.0",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
     "redux-thunk": "^2.3.0"

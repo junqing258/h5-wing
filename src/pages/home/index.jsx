@@ -43,7 +43,7 @@ export default function Home() {
 
 
       <Modal
-        visible={visibleModal}
+        show={visibleModal}
         title="这是自定义title"
         confirm={closeModal}
         onClose={closeModal} >

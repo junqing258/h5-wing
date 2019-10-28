@@ -1,18 +1,26 @@
 
 .modal {
   position: fixed;
-  width: 300px;
-  height: 200px;
+  width: 400px;
+  height: 250px;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   margin: auto;
-  border-radius: 5px;
+  border-radius: 10px;
   background: #fff;
   overflow: hidden;
   z-index: 9999;
-  box-shadow: inset 0 0 1px 0 #000;
+  box-shadow: 0 0 4px 0 rgba(129, 124, 124, 0.5);
+}
+
+.m-show {
+  display: block;
+}
+
+.m-hide {
+  display: none;
 }
 
 .modal-title {
@@ -31,6 +39,8 @@
 .modal-operator {
   width: 100%;
   height: 50px;
+  position: absolute;
+  bottom: 0;
 }
 
 .modal-operator-close, .modal-operator-confirm {
@@ -45,6 +55,10 @@
   cursor: pointer;
 }
 
+.modal-operator-confirm {
+  border-left: white 1px solid;
+}
+
 .modal-operator-close:active, .modal-operator-confirm:active {
   opacity: .6;
   transition: opacity .3s;
@@ -57,34 +71,40 @@
   right: 0;
   bottom: 0;
   background: #000;
-  opacity: .6;
+  opacity: .7;
   z-index: 9998;
 }
 
-.modal-enter {
-  transform: scale(0);
+.alert-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.alert-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.alert-exit {
+  opacity: 1;
+}
+.alert-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
 }
 
-.modal-enter-active {
-  transform: scale(1.1);
-  transition: all .2s linear;
+.mask-enter {
+  opacity: 0;
+}
+.mask-enter-active {
+  opacity: .7;
+  transition: opacity 300ms, transform 300ms;
+}
+.mask-exit {
+  opacity: .7;
+}
+.mask-exit-active {
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
 }
 
-.modal-enter-end {
-  transform: scale(1);
-  transition: all .1s linear;
-}
-
-.modal-leave {
-  transform: scale(1);
-}
-
-.modal-leave-active {
-  transform: scale(1.1);
-  transition: all .1s linear;
-}
-
-.modal-leave-end {
-  transform: scale(0);
-  transition: all .2s linear;
-}
