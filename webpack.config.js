@@ -32,7 +32,7 @@ module.exports = () => {
     output: {
       pathinfo: false,
       path: PACK_PATH,
-      filename: !isProd ? '[name].js?' : '[name].[chunkhash:6].js'
+      filename: !isProd ? '[name].js?[hash:6]' : '[name].[chunkhash:6].js'
     },
     watch: !isProd,
     plugins: [
@@ -46,7 +46,7 @@ module.exports = () => {
       }),
       new MiniCssExtractPlugin({
         filename: !isProd ? '[name].css' : '[name].[contenthash:6].css',
-        chunkFilename: !isProd ? '[id].css' : '[id].[contenthash:6].css',
+        chunkFilename: !isProd ? '[id].css' : '[id].[chunkhash:6].css',
       }),
       new HtmlWebpackPlugin({
         title: '平安好医生',
@@ -117,7 +117,7 @@ module.exports = () => {
           options: {
             // 8192 = 1024 * 8 小于等于8k的转换成 base64
             limit: 8192,
-            name: !isProd ? './assets/[name].[ext]' : './assets/[name].[hash:6].[ext]'
+            name: !isProd ? './assets/[name].[ext]' : './assets/[name].[contenthash:6].[ext]'
           }
         }]
       }, {
@@ -127,7 +127,7 @@ module.exports = () => {
           loader: 'url-loader',
           options: {
             limit: 10240,
-            name: !isProd ? './assets/fonts/[name].[ext]' : './assets/fonts/[name].[hash:6].[ext]'
+            name: !isProd ? './assets/fonts/[name].[ext]' : './assets/fonts/[name].[contenthash:6].[ext]'
           }
         }]
       }

@@ -51,12 +51,15 @@
   line-height: 50px;
   opacity: 1;
   color: #fff;
-  background: #ff6600;
   cursor: pointer;
 }
 
+.modal-operator-close {
+  background: #c0c0c0;
+}
+
 .modal-operator-confirm {
-  border-left: white 1px solid;
+  background: #25c124;
 }
 
 .modal-operator-close:active, .modal-operator-confirm:active {

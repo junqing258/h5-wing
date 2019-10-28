@@ -14,85 +14,76 @@ class Modal extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.state = {
       visible: false,
+      ownUpdate: false
     };
   }
 
-  componentDidMount() {
-    // this.setState({ visible: this.props.visible });
+  static getDerivedStateFromProps(props, state) {
+    if (props.show !== state.visible) {
+      return { visible: props.show };
+    }
+    return null;
   }
 
-  // componentWillReceiveProps(props) {
-  //   this.setState({ visible: props.visible });
+  // componentDidUpdate(prevProps, prevState) {
+  //   if(prevProps.show!==this.props.show){
+  //     this.setState({visible: prevProps.show});
+  //   }
   // }
-
-  static getDerivedStateFromProps(nextProps, state) {
-    return { visible: nextProps.show };
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
-  }
-
-
-  openModal() {
-    const { onOpen } = this.props;
-    onOpen && onOpen();
-    this.setState({ visible: true });
-  }
 
   closeModal() { 
     const { onClose } = this.props;
     onClose && onClose();
-    this.setState({ visible: false });
+    // this.setState({ visible: false });
   }
 
   confirm() {
     const { confirm } = this.props;
     confirm && confirm();
-    this.setState({ visible: false });
+    // this.setState({ visible: false });
   }
 
   maskClick() {
-    this.setState({ visible: false });
+    // this.setState({ visible: false });
+    this.closeModal();
   }
 
   render() {
     const { visible } = this.state;
 
     const { title, children } = this.props;
-    return <NewPortal>
-      {/* 引入transition组件，去掉了外层的modal-wrapper */}
-      <CSSTransition
-        in={visible}
-        classNames="alert"
-        timeout={300}
-        // transitionEnterTimeout={200}
-        // transitionLeaveTimeout={200}
-      >
-        <div className={`modal m-${visible? "show": "hide"}`}>
-          <div className="modal-title">{title}</div>
-          <div className="modal-content">{children}</div>
-          <div className="modal-operator">
-            <button
-              onClick={this.closeModal}
-              className="modal-operator-close"
-            >取消</button>
-            <button
-              onClick={this.confirm}
-              className="modal-operator-confirm"
-            >确认</button>
+    return (
+      <NewPortal>
+        <CSSTransition
+          in={visible}
+          classNames="alert"
+          timeout={300}
+        >
+          <div className={`modal m-${visible? "show": "hide"}`}>
+            <div className="modal-title">{title}</div>
+            <div className="modal-content">{children}</div>
+            <div className="modal-operator">
+              <button
+                onClick={this.closeModal}
+                className="modal-operator-close"
+              >取消</button>
+              <button
+                onClick={this.confirm}
+                className="modal-operator-confirm"
+              >确认</button>
+            </div>
           </div>
-        </div>
-      </CSSTransition>
-      <CSSTransition
-        in={visible}
-        classNames="mask"
-        timeout={300}
-      >
-        <div className={`mask m-${visible? "show": "hide"}`} 
-          onClick={this.maskClick} ></div>
-      </CSSTransition>
-    </NewPortal>;
+        </CSSTransition>
+        <CSSTransition
+          in={visible}
+          classNames="mask"
+          timeout={300}
+        >
+          <div className={`mask m-${visible? "show": "hide"}`} 
+            onClick={this.maskClick} ></div>
+        </CSSTransition>
+      </NewPortal>
+    );
   }
 }
 export default Modal;
