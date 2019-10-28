@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import NewPortal from '../newPortal';
-// import Transition from '../transition';
 import { CSSTransition } from 'react-transition-group';
 
 import './modal.css';
 
-class Modal extends Component {
+export default class Modal extends Component {
 
   constructor(props) {
     super(props);
@@ -86,4 +85,3 @@ class Modal extends Component {
     );
   }
 }
-export default Modal;

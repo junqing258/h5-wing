@@ -12,6 +12,7 @@ import Modal from 'components/modal';
 
 export default function Home() {
   const [visibleModal, setVisibleModal] = useState(false);
+  const [time, setTime] = useState(0);
 
   const openModal = () => {
     setVisibleModal(true);
@@ -20,6 +21,18 @@ export default function Home() {
   const closeModal = () => {
     setVisibleModal(false);
   };
+
+  useEffect(() => {
+    let c = time;
+    let tid = setInterval(() => {
+      setTime(c+=1);
+    }, 1000);
+    return () => clearInterval(tid); 
+  }, []);
+
+  useEffect(() => {
+    document.title = `${time} sec`;
+  }, [time]);
 
   return (
     <div className="page">
