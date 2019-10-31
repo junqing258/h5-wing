@@ -6,8 +6,8 @@ export function Floor(props) {
   const { title, children } = props;
   return (
     <div className={props.className + ' floor'}>
-      { title && FloorHeader(props) }
-      { children }
+      {title && FloorHeader(props)}
+      {children}
     </div>
   );
 }

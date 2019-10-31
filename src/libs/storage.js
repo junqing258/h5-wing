@@ -1,4 +1,4 @@
-import {getUserInfo} from './reqUtils';
+import { getUserInfo } from './reqUtils';
 
 // 设置 localStorage
 // 参数说明
@@ -11,7 +11,7 @@ export function setLocalStorage(key, val = '', unique = false) {
   if (unique) {
     // 加了 userid 后缀 的格式，不能修改
     // 因为：dnurse-latest-read 在 diablo-h5-user 库中需要读取的，许保持一致
-    getUserInfo().then((userInfo) => {
+    getUserInfo().then(userInfo => {
       localStorage.setItem(key + '-' + userInfo.id, val);
     });
   } else {
@@ -23,7 +23,7 @@ export function setLocalStorage(key, val = '', unique = false) {
 // unique： true 表示这个值是和用户绑定的，需要加上用户唯一表示
 export function getLocalStorage(key, callback, unique = false) {
   if (unique) {
-    getUserInfo().then((userInfo) => {
+    getUserInfo().then(userInfo => {
       let val = localStorage.getItem(key + '-' + userInfo.id);
 
       try {
@@ -51,7 +51,7 @@ export function getLocalStorage(key, callback, unique = false) {
 
 export function removeLocalStorage(key, unique = false) {
   if (unique) {
-    getUserInfo().then((userInfo) => {
+    getUserInfo().then(userInfo => {
       localStorage.removeItem(key + '-' + userInfo.id);
     });
   } else {
