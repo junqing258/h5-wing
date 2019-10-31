@@ -2,7 +2,12 @@
   "compilerOptions": {
     "target": "es5",
     "experimentalDecorators": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "outDir": "./dist",
+    "sourceMap": true,
     "lib": [
       "dom",
       "dom.iterable",
@@ -22,10 +27,10 @@
     "jsx": "preserve"
   },
   "include": [
-    "src/**/*",
-    "node_modules"
+    "src/**/*"
   ],
   "exclude": [
-		"dist"
+    "dist",
+    "node_modules"
 	]
 }

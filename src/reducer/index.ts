@@ -5,7 +5,7 @@ import { increment, decrement, reset } from '../actions/index';
 
 const defaultState = { counter: 10 };
 
-const actions = {};
+const actions: any = {};
 
 actions[combineActions(increment, decrement)] = ( state, actions ) => {
   let { payload: { amount } }  = actions;
