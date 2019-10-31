@@ -1,26 +1,29 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+interface IProps {};
+interface IState {};
 
-export default class Shop extends Component {
+export default class Shop extends Component<IProps, IState> {
 
   state = { "name": "page1" };
+  private timer: any;
 
   static propTypes = {
     name: PropTypes.string
   };
 
-  constructor(props) {
+  constructor(props: IProps) {
     super(props);
   }
 
-  static getDerivedStateFromProps(nextProps, state) {
+  static getDerivedStateFromProps(nextProps: IProps, state: IState) {
     console.log('[getDerivedStateFromProps]', nextProps, state);
     return null;
   }
   // componentWillReceiveProps/UNSAFE_componentWillReceiveProps
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: IProps, nextState: IState) {
     return true;
   }
 
@@ -28,7 +31,7 @@ export default class Shop extends Component {
 
   // render
 
-  getSnapshotBeforeUpdate(prevProps, prevState) {
+  getSnapshotBeforeUpdate(prevProps: IProps, prevState: IState) {
     console.log('[getSnapshotBeforeUpdate]', prevProps, prevState);
     // if (prevProps.list.length < this.props.list.length) {
     //   const list = this.listRef.current;
@@ -50,7 +53,7 @@ export default class Shop extends Component {
     clearTimeout(this.timer);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps: IProps, prevState: IState, snapshot: any) {
     console.log('[componentDidUpdate]', prevProps, prevState, snapshot);
   }
 

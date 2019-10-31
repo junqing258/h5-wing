@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { DatePicker, List } from 'antd-mobile';
 // import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
 
-
-import style from './style.scss';
+import './style.scss';
 import Topbar from 'components/top/Topbar';
 import { Floor } from 'components/floor/Floor';
 // import { Link } from 'react-router-dom';

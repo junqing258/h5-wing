@@ -1,7 +1,12 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import appReducer from "reducer/index";
+import appReducer from "../reducer/index";
+
+
+declare global {
+  interface Window { __REDUX_DEVTOOLS_EXTENSION__: any; }
+}
 
 export default function() {
   return createStore(appReducer, compose(

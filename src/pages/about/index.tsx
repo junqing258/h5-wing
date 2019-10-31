@@ -1,15 +1,15 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import { connect, combineActions } from 'react-redux';
+import { connect } from 'react-redux';
 
 import { increment, decrement, reset } from 'actions/index';
 
-export function About(props) {
+export function About(props: any) {
   return (
     <div className="app">
       <header className="app-header">
         <p>
-          About <span>{ props.counter }</span> and save to reload.
+          About { props.counter } and save to reload.
         </p>
         <p> { props.location.search } </p>
       </header>
@@ -20,10 +20,10 @@ export function About(props) {
   );
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: any, ownProps: any) => {
   return state.main;
 };
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return bindActionCreators({ increment, decrement, reset }, dispatch);
 };
 

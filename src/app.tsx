@@ -4,20 +4,20 @@ import { HashRouter, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 // import { hot } from 'react-hot-loader/root';
 
 import './scss/app.scss'; 
-import store from 'store';
-import { lazyLoad } from 'components/bundle';
+import store from './store';
+// import { lazyLoad } from 'components/bundle';
+import AsyncComponent from './components/asyncComp/AsyncComponent';
 
-import Home from 'bundle-loader?lazy&name=home!./pages/home';
-import Shop from 'bundle-loader?lazy&name=shop!./pages/shop';
-import About from 'bundle-loader?lazy&name=about!./pages/about';
-// const Home = lazyLoad(() => import('./pages/home'));
-// const About = lazyLoad(() => import('./pages/about'));
+// import Home from 'bundle-loader?lazy&name=home!./pages/home';
+const Home = AsyncComponent(() => import('./pages/home'));
+const Shop = AsyncComponent(() => import('./pages/shop'));
+const About = AsyncComponent(() => import('./pages/about'));
 
-const App = () => {
+const App: React.FC = () => {
   return(
     <Provider store={store()}>
       <HashRouter>
-        <div className="nav">
+        <div className="nav" style={{padding: "10px"}}>
           <NavLink to="/" activeClassName="selected" exact>首页</NavLink>&nbsp;
           <NavLink to="/shop" activeClassName="" exact>商城</NavLink>&nbsp;
           <NavLink to="/about" activeClassName="" exact>关于</NavLink>
@@ -25,9 +25,9 @@ const App = () => {
         <Switch>
           <Route path="/" render={props => (
             <Switch>
-              <Route path="/" exact component={ lazyLoad(Home) } />
-              <Route path="/about" exact component={ lazyLoad(About) } />
-              <Route path="/shop" exact component={ lazyLoad(Shop) } />
+              <Route path="/" exact component={ Home } />
+              <Route path="/about" exact component={ About } />
+              <Route path="/shop" exact component={ Shop } />
               <Route render={() => <Redirect to="/" />} />
             </Switch>
           )}

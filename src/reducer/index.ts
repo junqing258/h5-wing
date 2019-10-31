@@ -1,7 +1,7 @@
 import { createActions, handleActions, combineActions } from 'redux-actions';
 import { combineReducers } from 'redux';
 
-import { increment, decrement, reset } from 'actions/index';
+import { increment, decrement, reset } from '../actions/index';
 
 const defaultState = { counter: 10 };
 

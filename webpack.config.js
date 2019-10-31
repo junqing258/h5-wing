@@ -32,7 +32,8 @@ module.exports = () => {
     output: {
       pathinfo: false,
       path: PACK_PATH,
-      filename: !isProd ? '[name].js?[hash:6]' : '[name].[chunkhash:6].js'
+      filename: !isProd ? '[name].js?[hash:6]' : '[name].[chunkhash:6].js',
+      chunkFilename:'js/[id].[name].chunk.js'
     },
     watch: !isProd,
     plugins: [
