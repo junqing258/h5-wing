@@ -1,10 +1,3 @@
+class Sprite {}
 
-
-class Sprite {
-
-}
-
-
-class Griphical {
-  
-}
+class Griphical {}

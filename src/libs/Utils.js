@@ -1,7 +1,7 @@
 import CONFIG from '../../../autoconfig.js';
-import {globalVar} from '../constants/var';
-import {paBankOpenWebView} from './paBank';
-export {Base64} from './base64';
+import { globalVar } from '../constants/var';
+import { paBankOpenWebView } from './paBank';
+export { Base64 } from './base64';
 
 // status = add update delete
 // first = true 只更新第一个
@@ -19,7 +19,7 @@ export function updateObjInArray(arr, obj, key = 'id', status = 'update', first 
     return arr;
   }
   if (status === 'delete' && !first) {
-    let res = [];
+    const res = [];
 
     arr.forEach((item, index) => {
       if (item[key] !== obj[key] || (fn && !fn(item, obj, index))) {
@@ -29,13 +29,13 @@ export function updateObjInArray(arr, obj, key = 'id', status = 'update', first 
 
     return res;
   }
-    
+
   for (let i = 0; i < arr.length; i++) {
     if (arr[i][key] === obj[key] && (!fn || fn(arr[i], obj, i))) {
       if (status === 'update') {
         arr[i] = {
           ...arr[i],
-          ...obj
+          ...obj,
         };
       } else if (status === 'delete') {
         arr.splice(i, 1);
@@ -60,7 +60,7 @@ function _refreshSDKHibit() {
     window.pajkPostMessage(null, null, {
       action: 5,
       type: 4,
-      data: {needRefresh: true}
+      data: { needRefresh: true },
     });
   } else {
     setTimeout(() => {
@@ -72,37 +72,38 @@ function _refreshSDKHibit() {
 // 唤起 app
 export function callAPP(url) {
   switch (globalVar.fromApp) {
-  case 'SHOUXIAN':
-    location.assign('https://ulink.lifeapp.pingan.com.cn/index.html?url='
-                + encodeURIComponent('pars://pars.pingan.com/health_detail?url='
-                    + encodeURIComponent(url)));
-    break;
+    case 'SHOUXIAN':
+      location.assign(
+        'https://ulink.lifeapp.pingan.com.cn/index.html?url=' +
+          encodeURIComponent('pars://pars.pingan.com/health_detail?url=' + encodeURIComponent(url)),
+      );
+      break;
 
-  case 'PAJK': {
-    // 使用 apps.jk.cn
-    // Android url 必须 encode 两次
-    if (Util.isAndroid()) {
-      url = encodeURIComponent(url);
-    }
-    const schema = `pajkdoctor://jk.cn/jump?data=${encodeURIComponent(url)}&query=BANNER_CON_LINK`;
+    case 'PAJK': {
+      // 使用 apps.jk.cn
+      // Android url 必须 encode 两次
+      if (Util.isAndroid()) {
+        url = encodeURIComponent(url);
+      }
+      const schema = `pajkdoctor://jk.cn/jump?data=${encodeURIComponent(url)}&query=BANNER_CON_LINK`;
 
-    location.assign('https://apps.jk.cn/guide/index.html?schema=' + encodeURIComponent(schema));
-    break;
-  }
-  case 'BANK':
-    if (window.Paebank) {
-      Paebank.tryOpen({
-        url,
-        fromClick: true
-      });
-    } else {
-      setTimeout(() => {
-        callAPP(url);
-      }, 300);
+      location.assign('https://apps.jk.cn/guide/index.html?schema=' + encodeURIComponent(schema));
+      break;
     }
-    break;
-  default:
-    location.assign(url);
+    case 'BANK':
+      if (window.Paebank) {
+        Paebank.tryOpen({
+          url,
+          fromClick: true,
+        });
+      } else {
+        setTimeout(() => {
+          callAPP(url);
+        }, 300);
+      }
+      break;
+    default:
+      location.assign(url);
   }
 }
 
@@ -111,7 +112,7 @@ export function getMetaViewport(callback) {
   if (typeof callback !== 'function') {
     return;
   }
-  let viewport = document.querySelector('meta[name="viewport"]');
+  const viewport = document.querySelector('meta[name="viewport"]');
 
   if (viewport) {
     callback(viewport.content, document.documentElement.getAttribute('data-dpr'));
@@ -124,7 +125,7 @@ export function getMetaViewport(callback) {
 
 // 设置 viewport meta 的 content
 export function setMetaViewport(content, dpr) {
-  let viewport = document.querySelector('meta[name="viewport"]');
+  const viewport = document.querySelector('meta[name="viewport"]');
 
   if (viewport) {
     viewport.content = content;
@@ -166,9 +167,9 @@ export function getCookie(name) {
 
 // 简单设置cookie
 export function setCookie(name, value) {
-  document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value) + ';path=/;domain=' + location.host.replace('www.', '');
+  document.cookie =
+    encodeURIComponent(name) + '=' + encodeURIComponent(value) + ';path=/;domain=' + location.host.replace('www.', '');
 }
-
 
 // 判断 href 中 hash 是否包含特定的hash值
 // 需要排除 redirect 中的值
@@ -202,12 +203,11 @@ export function changeHash(href, rHash, isDelete) {
     // 新增 hash 值
   } else {
     if (rHashIndex === -1) {
-      url = hashIndex !== -1
-        ? `${href.slice(0, hashIndex + 1)}${rHash}&${href.slice(hashIndex + 1)}`
-        : `${href}#${rHash}`;
+      url =
+        hashIndex !== -1 ? `${href.slice(0, hashIndex + 1)}${rHash}&${href.slice(hashIndex + 1)}` : `${href}#${rHash}`;
     }
   }
-    
+
   if (typeof history.replaceState === 'function') {
     history.replaceState(null, null, url);
   } else {
@@ -219,7 +219,7 @@ export function changeHash(href, rHash, isDelete) {
 export function serialize(obj, prefix) {
   const str = [];
 
-  for (let p in obj) {
+  for (const p in obj) {
     if (obj.hasOwnProperty(p)) {
       const k = prefix ? `${prefix}[${p}]` : p;
       const v = obj[p];
@@ -256,11 +256,11 @@ export function parseUrlSearch(str, lastKey) {
   }
   const res = {};
 
-  str.split('&').forEach((item) => {
+  str.split('&').forEach(item => {
     if (!item) {
       return;
     }
-    let keyVal = item.split('=');
+    const keyVal = item.split('=');
 
     res[keyVal[0]] = keyVal[1];
   });
@@ -279,12 +279,12 @@ export function openUrl(url, thirdpartyUrls, showHeader = false, title = '平安
   }
   let thirdpartyUrl;
 
-  if (Array.isArray(thirdpartyUrls) && thirdpartyUrls.length) { 
-    for (let i = thirdpartyUrls.length; i--;) {
+  if (Array.isArray(thirdpartyUrls) && thirdpartyUrls.length) {
+    for (let i = thirdpartyUrls.length; i--; ) {
       if (url === thirdpartyUrls[i].url) {
         thirdpartyUrl = thirdpartyUrls[i];
 
-        break;  
+        break;
       }
     }
   }
@@ -302,7 +302,7 @@ export function openUrl(url, thirdpartyUrls, showHeader = false, title = '平安
           tpl: thirdpartyUrl.tpl || 'default',
           type: thirdpartyUrl.type,
           mode: 1,
-          url: thirdpartyUrl.url 
+          url: thirdpartyUrl.url,
         };
       } else {
         opts = {
@@ -310,7 +310,9 @@ export function openUrl(url, thirdpartyUrls, showHeader = false, title = '平安
           showHeader,
           tpl: 'webview', // webview模式，为thirdfixedheader时无法使用native交互
           mode: 1, // 0为一般模式的webview，1为具有口袋银行交互的模式
-          url: `${location.origin}/html-collection/pinganBank.html#${showHeader ? 'nativeTopBar=1&' : ''}redirect=${encodeURIComponent(url)}` 
+          url: `${location.origin}/html-collection/pinganBank.html#${
+            showHeader ? 'nativeTopBar=1&' : ''
+          }redirect=${encodeURIComponent(url)}`,
         };
       }
 
@@ -347,12 +349,12 @@ const logMaps = {
   5: 'log_version',
   503: 'session_id',
   504: 'session_duration',
-  4: 'channel' // 渠道 可以等同于app；例如平安好医生、寿险app、好车主、平安银行等
+  4: 'channel', // 渠道 可以等同于app；例如平安好医生、寿险app、好车主、平安银行等
 };
 
 export function makeLog(params = {}) {
   if (process.env.NODE_ENV !== 'production') {
-    for (let k in params) {
+    for (const k in params) {
       if (!logMaps[k]) {
         throw new Error(`打点暂不支持参数（ ${k} ）`);
       }
@@ -369,9 +371,9 @@ export function makeLog(params = {}) {
         eventDesc = JSON.parse(eventDesc);
       }
 
-      eventDesc = {from: globalVar.from, ...eventDesc};
+      eventDesc = { from: globalVar.from, ...eventDesc };
     } else {
-      eventDesc = {from: globalVar.from};
+      eventDesc = { from: globalVar.from };
     }
 
     // 默认加上 609、610、4、30这些参数
@@ -380,11 +382,11 @@ export function makeLog(params = {}) {
       610: document.referrer,
       4: globalVar.app || globalVar.fromApp,
       30: JSON.stringify(eventDesc),
-      ...params
+      ...params,
     };
 
     try {
-      for (let k in params) {
+      for (const k in params) {
         params[logMaps[k]] = params[k];
         delete params[k];
       }
@@ -426,7 +428,7 @@ export function setTitle(title) {
   document.title = title;
   // 微信处理
   if (Util.isWeixinBrowser()) {
-    var i = document.createElement('iframe');
+    const i = document.createElement('iframe');
 
     i.src = '/favicon.ico';
     i.style.display = 'none';
@@ -445,20 +447,20 @@ export function countdown(now, endDate, callback, interval = 1000) {
   if (endDate - now < interval) {
     return callback('');
   }
-  let diff = now - Date.now();
+  const diff = now - Date.now();
   let timeout = null;
 
   function draw() {
-    let time = Math.round((endDate - Date.now() - diff) / 1000);
-        
+    const time = Math.round((endDate - Date.now() - diff) / 1000);
+
     // 倒计时结束
     if (time < interval / 1000) {
       return callback('', 0, 0, 0, 0, timeout);
     }
-    let day = Math.floor(time / (3600 * 24));
-    let hours = Math.floor(time % (3600 * 24) / 3600);
-    let minute = Math.floor(time % (3600 * 24) % 3600 / 60);
-    let second = time % (3600 * 24) % 3600 % 60;
+    const day = Math.floor(time / (3600 * 24));
+    let hours = Math.floor((time % (3600 * 24)) / 3600);
+    let minute = Math.floor(((time % (3600 * 24)) % 3600) / 60);
+    let second = ((time % (3600 * 24)) % 3600) % 60;
 
     let resStr = '';
 
@@ -492,24 +494,24 @@ export function numConvert(num, unit = '万', digit = 0, unitStr = '') {
   if (Array.isArray(unit)) {
     for (let i = 0; i < unit.length; i++) {
       switch (unit[i]) {
-      case '万':
-        if (num >= 10000) {
-          return numConvert(num, '万', digit, unitStr);
-        }
-        break;
+        case '万':
+          if (num >= 10000) {
+            return numConvert(num, '万', digit, unitStr);
+          }
+          break;
 
-      case '千':
-        if (num >= 1000) {
-          return numConvert(num, '千', digit, unitStr);
-        }
-        break;
+        case '千':
+          if (num >= 1000) {
+            return numConvert(num, '千', digit, unitStr);
+          }
+          break;
 
-      default:
-        return num;
+        default:
+          return num;
       }
     }
   }
-  var unitNum = 10000;
+  let unitNum = 10000;
 
   if (unit === '千') {
     unitNum = 1000;
@@ -531,13 +533,13 @@ export function numConvert(num, unit = '万', digit = 0, unitStr = '') {
 export function loadImg(src, successCallback, errorCallback) {
   let img = new Image();
 
-  img.onload = function () {
+  img.onload = function() {
     if (typeof successCallback === 'function') {
       successCallback(src);
     }
     img = img.onload = img.onerror = null;
   };
-  img.onerror = function () {
+  img.onerror = function() {
     if (typeof errorCallback === 'function') {
       errorCallback(src);
     }
@@ -562,10 +564,10 @@ export function loadJS(url, callback, id) {
     return;
   }
   const script = document.createElement('script');
-    
+
   script.onload = () => {
     loadJS.cache[url] = true;
-        
+
     if (typeof callback === 'function') {
       callback();
     }
@@ -592,7 +594,7 @@ export function getDateObj(milliseconds) {
     day: date.getDate(),
     hours: date.getHours(),
     minutes: date.getMinutes(),
-    seconds: date.getSeconds()
+    seconds: date.getSeconds(),
   };
 }
 
@@ -604,27 +606,24 @@ export function compareDay(day, next, compare = '=') {
   if (!day || !next) {
     return false;
   }
-  let dayObj = typeof day === 'object' && day.year ? day : getDateObj(day),
+  const dayObj = typeof day === 'object' && day.year ? day : getDateObj(day),
     nextObj = typeof next === 'object' && next.year ? next : getDateObj(next);
 
   switch (compare) {
-  case '=':
-    return dayObj.year === nextObj.year
-                && dayObj.month === nextObj.month
-                && dayObj.day === nextObj.day;
+    case '=':
+      return dayObj.year === nextObj.year && dayObj.month === nextObj.month && dayObj.day === nextObj.day;
 
-        // case '<=':
-        //     return dayObj.year < nextObj.year
-        //         || (dayObj.year == nextObj.year && dayObj.month < nextObj.month)
-        //         || (dayObj.year == nextObj.year && dayObj.month == nextObj.month && dayObj.day <= nextObj.day);
-
+    // case '<=':
+    //     return dayObj.year < nextObj.year
+    //         || (dayObj.year == nextObj.year && dayObj.month < nextObj.month)
+    //         || (dayObj.year == nextObj.year && dayObj.month == nextObj.month && dayObj.day <= nextObj.day);
   }
 }
 
 export const Util = {
   // 去除首尾空格
   // 主要判断 null undefined 返回空字符串
-  trim: function (str) {
+  trim: function(str) {
     if (str == null) {
       return '';
     }
@@ -634,7 +633,7 @@ export const Util = {
 
   // 合成 url
   // 防止有多个 “/” 或者没有 “/”
-  mergeUrl: function (domain, catalog) {
+  mergeUrl: function(domain, catalog) {
     if (!catalog) {
       return domain || '';
     }
@@ -643,7 +642,7 @@ export const Util = {
   },
 
   // 补零
-  pad: function (n, width, z) {
+  pad: function(n, width, z) {
     z = z || '0';
     n = n + '';
 
@@ -651,7 +650,7 @@ export const Util = {
   },
 
   // 判断有没有 token
-  hasToken: function () {
+  hasToken: function() {
     // 寿险 sdk 中需要判断 wtk 和 tk
     if (this.isPajkslaSDK()) {
       return !!(getCookie('_wtk') && getCookie('_tk'));
@@ -661,10 +660,10 @@ export const Util = {
   },
 
   // 是不是寿险 sdk
-  isPajkslaSDK: function () {
-    var isPajkslaSDK = /(pajksla|shouxian)/i.test(navigator.userAgent);
+  isPajkslaSDK: function() {
+    const isPajkslaSDK = /(pajksla|shouxian)/i.test(navigator.userAgent);
 
-    this.isPajkslaSDK = function () {
+    this.isPajkslaSDK = function() {
       return isPajkslaSDK;
     };
 
@@ -673,37 +672,37 @@ export const Util = {
 
   // 是不是平安好医生 app
   // 包含极速版
-  isPajkApp: function () {
-    var isPajkApp = /pajk/i.test(navigator.userAgent);
+  isPajkApp: function() {
+    let isPajkApp = /pajk/i.test(navigator.userAgent);
 
     // 不包括 金管家 sdk
     if (isPajkApp) {
       isPajkApp = !this.isPajkslaSDK();
     }
 
-    this.isPajkApp = function () {
+    this.isPajkApp = function() {
       return isPajkApp;
     };
 
     return isPajkApp;
   },
-    
-  // 判断是不是 Android
-  isAndroid: function () {
-    var isAndroid = /(Android)/i.test(navigator.userAgent);
 
-    this.isAndroid = function () {
+  // 判断是不是 Android
+  isAndroid: function() {
+    const isAndroid = /(Android)/i.test(navigator.userAgent);
+
+    this.isAndroid = function() {
       return isAndroid;
     };
 
     return isAndroid;
   },
-    
-  // 判断是不是 IOS
-  isIOS: function () {
-    var isIOS = /(iphone|ipad|ipod)/i.test(navigator.userAgent);
 
-    this.isIOS = function () {
+  // 判断是不是 IOS
+  isIOS: function() {
+    const isIOS = /(iphone|ipad|ipod)/i.test(navigator.userAgent);
+
+    this.isIOS = function() {
       return isIOS;
     };
 
@@ -711,7 +710,7 @@ export const Util = {
   },
 
   // 格式化日期
-  formatDate: function (milliseconds, hasHoursMinute = true, flag = '-', hasSeconds = false, hasYear = true) {
+  formatDate: function(milliseconds, hasHoursMinute = true, flag = '-', hasSeconds = false, hasYear = true) {
     const dateObj = getDateObj(milliseconds);
 
     if (!dateObj) {
@@ -720,7 +719,7 @@ export const Util = {
     if (!Array.isArray(flag)) {
       flag = [flag, flag, ''];
     }
-    var year = hasYear ? dateObj.year + flag[0] : '',
+    let year = hasYear ? dateObj.year + flag[0] : '',
       month = this.pad(dateObj.month, 2) + flag[1],
       day = this.pad(dateObj.day, 2) + flag[2],
       hours = '',
@@ -740,12 +739,12 @@ export const Util = {
   },
 
   // 格式化时间
-  formatTime: function (seconds) {
+  formatTime: function(seconds) {
     seconds = +seconds;
     if (!seconds) {
       return '00:00';
     }
-    let minute = Math.floor(seconds / 60),
+    const minute = Math.floor(seconds / 60),
       second = seconds % 60;
 
     return `${this.pad(minute, 2)}:${this.pad(second, 2)}`;
@@ -753,15 +752,17 @@ export const Util = {
 
   // 获取样式
   // isNumber 用于是否返回数字
-  getStyle: function (elem, attr, isNumber) {
+  getStyle: function(elem, attr, isNumber) {
     if (!elem) {
       return;
     }
     let style;
 
-    if (getComputedStyle) { // 标准
+    if (getComputedStyle) {
+      // 标准
       style = getComputedStyle(elem)[attr];
-    } else if (document.documentElement.currentStyle) { // IE
+    } else if (document.documentElement.currentStyle) {
+      // IE
       style = elem.currentStyle[attr];
     }
     elem = null;
@@ -774,22 +775,22 @@ export const Util = {
   },
 
   // 获取 transition 动画结束事件
-  getTransitionEndEvent: function () {
+  getTransitionEndEvent: function() {
     let div = document.createElement('div'),
       TransitionEndEvent = {
         WebkitTransition: 'webkitTransitionEnd',
         MozTransition: 'transitionend',
         OTransition: 'oTransitionEnd otransitionend',
-        transition: 'transitionend'
+        transition: 'transitionend',
       },
       transitionEnd;
 
-    for (let name in TransitionEndEvent) {
+    for (const name in TransitionEndEvent) {
       if (div && typeof div.style[name] !== 'undefined') {
         transitionEnd = TransitionEndEvent[name];
 
         // 缓存 不用重新计算
-        this.getTransitionEndEvent = function () {
+        this.getTransitionEndEvent = function() {
           return transitionEnd;
         };
 
@@ -801,19 +802,19 @@ export const Util = {
   },
 
   // CSS 前缀
-  vendorPropName: (function () {
-    var cssPrefixes = ['Webkit', 'Moz', 'O', 'ms'],
+  vendorPropName: (function() {
+    const cssPrefixes = ['Webkit', 'Moz', 'O', 'ms'],
       emptyStyle = document.createElement('div').style;
 
-    return function (name) {
+    return function(name) {
       if (name in emptyStyle) {
         return name;
       }
 
-      var capName = name[0].toUpperCase() + name.slice(1),
+      const capName = name[0].toUpperCase() + name.slice(1),
         length = cssPrefixes.length;
 
-      for (var i = 0; i < length; i++) {
+      for (let i = 0; i < length; i++) {
         name = cssPrefixes[i] + capName;
         if (name in emptyStyle) {
           return name;
@@ -824,11 +825,11 @@ export const Util = {
 
   // 获取滚动的容器
   // 如果是 document 就返回 window
-  getScrollPane: function (elem) {
+  getScrollPane: function(elem) {
     if (!elem) {
       return;
     }
-    let reg = /(scroll|auto)/i;
+    const reg = /(scroll|auto)/i;
 
     while (true) {
       if (reg.test(this.getStyle(elem, 'overflowY')) || reg.test(this.getStyle(elem, 'overflowX'))) {
@@ -846,7 +847,7 @@ export const Util = {
   },
 
   // 获取公有云图片下载的完整地址
-  getTfsImg: function (key, width, quality, jpg) {
+  getTfsImg: function(key, width, quality, jpg) {
     // 1、key 不存在
     // 2、以 //  http  https 开头的地址 是 不需要转换的地址
     // 3、data: 开头（base64）
@@ -889,12 +890,12 @@ export const Util = {
   },
 
   // 距离当前时间
-  timeago: function (milliseconds, systime = Date.now()) {
+  timeago: function(milliseconds, systime = Date.now()) {
     milliseconds = +milliseconds;
     if (!milliseconds) {
       return '';
     }
-    let diff = (systime - milliseconds) / 1000;
+    const diff = (systime - milliseconds) / 1000;
 
     // 1小时之内
     if (diff < 3600) {
@@ -915,41 +916,39 @@ export const Util = {
 
   // 简单验证手机号码
   // isEncrypted 表示手机号 中间四位可以是*即：134****4439 或者 13404354439
-  isMobilePhone: function (mobilePhone, isEncrypted) {
+  isMobilePhone: function(mobilePhone, isEncrypted) {
     mobilePhone = (mobilePhone + '').trim();
 
-    return isEncrypted
-      ? /^\d{3}[*|\d]{4}\d{4}$/.test(mobilePhone)
-      : /^\d{11}$/.test(mobilePhone);
+    return isEncrypted ? /^\d{3}[*|\d]{4}\d{4}$/.test(mobilePhone) : /^\d{11}$/.test(mobilePhone);
   },
 
   // 判断是不是 微信
-  isWeixinBrowser: function () {
-    var isWeixinBrowser = /MicroMessenger/i.test(navigator.userAgent);
+  isWeixinBrowser: function() {
+    const isWeixinBrowser = /MicroMessenger/i.test(navigator.userAgent);
 
-    this.isWeixinBrowser = function () {
+    this.isWeixinBrowser = function() {
       return isWeixinBrowser;
     };
 
     return isWeixinBrowser;
   },
-    
+
   // 获取 app 版本号 version
   // 主客：pajkAppVersion/50800
-  // 极速版(android)：pajkAppVersion/1.0.0 
+  // 极速版(android)：pajkAppVersion/1.0.0
   // 极速版(ios)：pajkAppVersion/10000
   // 寿险 sdk  pajkslaAppVersion/1000
-  getAppVersion: function () {
-    var match = navigator.userAgent.match(/(pajk(?:sla)?AppVersion\/([\d|.]+))/i);
-    var vc = match && match[2] || 0;
+  getAppVersion: function() {
+    const match = navigator.userAgent.match(/(pajk(?:sla)?AppVersion\/([\d|.]+))/i);
+    const vc = (match && match[2]) || 0;
 
     // 有 versionCode时 重置 getAppVersion 函数
     if (vc) {
-      this.getAppVersion = function () {
+      this.getAppVersion = function() {
         return vc;
       };
     }
 
     return vc;
-  }
+  },
 };

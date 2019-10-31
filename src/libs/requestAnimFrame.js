@@ -3,15 +3,16 @@
  *
  *  使用 requestAnimationFrame 模拟 setTimeout 动画时防止 setTimeout 卡顿
  */
-const animFrame = (function () {
-  return window.requestAnimationFrame
-        || window.webkitRequestAnimationFrame
-        || window.mozRequestAnimationFrame
-        || function (callback) {
-          setTimeout(callback, 1000 / 60);
-        };
+const animFrame = (function() {
+  return (
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    function(callback) {
+      setTimeout(callback, 1000 / 60);
+    }
+  );
 })();
-
 
 // 模拟 setTimeout
 export default function requestAnimFrame(callback, time) {
@@ -23,7 +24,7 @@ export default function requestAnimFrame(callback, time) {
     callback();
   };
 
-    // 计时
+  // 计时
   fn.now = Date.now();
 
   fn();
