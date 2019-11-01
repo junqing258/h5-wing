@@ -1,6 +1,5 @@
 // const glob = require('glob');
-const fs = require('fs');
-const { relative, resolve, join } = require('path');
+const { resolve } = require('path');
 const chalk = require('chalk');
 const webpack = require('webpack');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
@@ -8,7 +7,7 @@ const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 // const CopyPlugin = require('copy-webpack-plugin');
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const webpackConfig = require('./webpack.config.js')();
+const webpackConfig = require('./webpack.config.js.js')();
 
 const args = process.argv.slice(2);
 const useServer = !!args.find(v => v.indexOf('server') > -1);
