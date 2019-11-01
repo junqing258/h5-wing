@@ -1,23 +1,33 @@
 import React, { Component } from 'react';
 import NewPortal from '../newPortal';
 import { CSSTransition } from 'react-transition-group';
+import PropTypes from 'prop-types';
 
 import './modal.css';
 
-export default class Modal extends Component {
+export interface IProps {
+  title?: string;
+  onClose?: Function;
+  confirm?: Function;
+}
 
-  constructor(props) {
+export interface IState {
+  visible: boolean
+}
+
+export default class Modal extends Component<IProps, IState> {
+
+  constructor(props: IProps) {
     super(props);
     this.confirm = this.confirm.bind(this);
     this.maskClick = this.maskClick.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.state = {
-      visible: false,
-      ownUpdate: false
+      visible: false
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: any, state: any) {
     if (props.show !== state.visible) {
       return { visible: props.show };
     }

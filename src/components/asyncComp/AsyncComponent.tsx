@@ -6,7 +6,7 @@ interface ICompState {
   readonly Component?: keyof JSX.IntrinsicElements | any;
 }
 
-const AsyncComponent = (loadComponent: Function) =>
+const AsyncComponent = (loadComponent: Function, loaddingComponent: any = null) =>
   class AsyncComponent extends React.Component<ICompProps, ICompState> {
 
     state: ICompState = {
@@ -35,7 +35,7 @@ const AsyncComponent = (loadComponent: Function) =>
 
     public render() {
       const { Component } = this.state;
-      return Component ? <Component {...this.props} /> : null;
+      return Component ? <Component {...this.props} /> : loaddingComponent;
     }
   };
 
