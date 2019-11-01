@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { HashRouter, NavLink, Redirect, Route, Switch } from 'react-router-dom';
+import { HashRouter, BrowserRouter, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 // import { hot } from 'react-hot-loader/root';
 
 import './scss/app.scss'; 
@@ -16,7 +16,7 @@ const About = AsyncComponent(() => import('./pages/about'));
 const App: React.FC = () => {
   return(
     <Provider store={store()}>
-      <HashRouter>
+      <BrowserRouter>
         <div className="nav" style={{padding: "10px"}}>
           <NavLink to="/" activeClassName="selected" exact>首页</NavLink>&nbsp;
           <NavLink to="/shop" activeClassName="" exact>商城</NavLink>&nbsp;
@@ -34,7 +34,7 @@ const App: React.FC = () => {
           />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
     </Provider>
   );
 };

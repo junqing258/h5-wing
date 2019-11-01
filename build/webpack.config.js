@@ -5,12 +5,13 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 // const WebpackMd5Hash = require('webpack-md5-hash');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const autoconfig = require('./autoconfig.js');
 
-const PACK_PATH = path.join(__dirname, './dist');
+const PACK_PATH = path.join(__dirname, '../dist');
 
 module.exports = () => {
   const isProd = process.env.NODE_ENV === 'production';
@@ -30,7 +31,7 @@ module.exports = () => {
       pathinfo: false,
       path: PACK_PATH,
       filename: !isProd ? '[name].js?[hash:6]' : '[name].[chunkhash:6].js',
-      chunkFilename: 'js/[id].[name].chunk.js',
+      chunkFilename: '[id].[name].chunk.js',
     },
     watch: !isProd,
     plugins: [
@@ -45,6 +46,9 @@ module.exports = () => {
       new MiniCssExtractPlugin({
         filename: !isProd ? '[name].css' : '[name].[contenthash:6].css',
         chunkFilename: !isProd ? '[id].css' : '[id].[chunkhash:6].css',
+      }),
+      new ManifestPlugin({
+        fileName: 'asset-manifest.json',
       }),
       new HtmlWebpackPlugin({
         title: '平安好医生',

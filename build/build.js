@@ -7,7 +7,7 @@ const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 // const CopyPlugin = require('copy-webpack-plugin');
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const webpackConfig = require('./webpack.config.js.js')();
+const webpackConfig = require('./webpack.config.js')();
 
 const args = process.argv.slice(2);
 const useServer = !!args.find(v => v.indexOf('server') > -1);
