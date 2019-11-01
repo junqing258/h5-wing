@@ -1,4 +1,4 @@
-src/js/libs/**
+src/libs/**
 node_modules/**
 dist/**
 bin/**
