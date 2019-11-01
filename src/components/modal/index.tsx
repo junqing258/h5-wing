@@ -7,6 +7,7 @@ import './modal.css';
 
 export interface IProps {
   title?: string;
+  show: boolean;
   onClose?: Function;
   confirm?: Function;
 }

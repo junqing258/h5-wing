@@ -8,7 +8,6 @@ import store from './store';
 // import { lazyLoad } from 'components/bundle';
 import AsyncComponent from './components/asyncComp/AsyncComponent';
 
-// import Home from 'bundle-loader?lazy&name=home!./pages/home';
 const Home = AsyncComponent(() => import('./pages/home'));
 const Shop = AsyncComponent(() => import('./pages/shop'));
 const About = AsyncComponent(() => import('./pages/about'));

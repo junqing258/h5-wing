@@ -2,7 +2,13 @@ import React from 'react';
 
 import './style.scss';
 
-export const Floor: React.FC = function(props: any) {
+interface IProps {
+  title?: string;
+  className?: string;
+  children: any
+}
+
+export const Floor: React.FC<IProps> = function(props) {
   const { title, children } = props;
   return (
     <div className={props.className + ' floor'}>
