@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { increment, decrement, reset } from 'actions/index';
+import { increment, decrement, reset } from '@/actions/index';
 
 export function About(props: any) {
   return (

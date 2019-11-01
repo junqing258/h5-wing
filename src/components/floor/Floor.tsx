@@ -2,7 +2,7 @@ import React from 'react';
 
 import './style.scss';
 
-export function Floor(props) {
+export const Floor: React.FC = function(props: any) {
   const { title, children } = props;
   return (
     <div className={props.className + ' floor'}>
@@ -12,7 +12,7 @@ export function Floor(props) {
   );
 }
 
-export function FloorHeader(props) {
+export function FloorHeader(props: any) {
   const { title } = props;
   return (
     <div className="floor-header">
