@@ -11,7 +11,7 @@ interface IProps {
 export const Floor: React.FC<IProps> = function(props) {
   const { title, children } = props;
   return (
-    <div className={props.className + ' floor'}>
+    <div className={[props.className, 'floor'].join(' ')}>
       {title && FloorHeader(props)}
       {children}
     </div>
