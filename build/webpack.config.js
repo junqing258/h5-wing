@@ -8,6 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const WingPlugin = require('./wing-webpack-plugin');
 
 const autoconfig = require('./autoconfig.js');
 
@@ -37,6 +38,7 @@ module.exports = () => {
     plugins: [
       definePlugin,
       // new WebpackMd5Hash(),
+      // new WingPlugin(),
       new ProgressBarPlugin(),
       new CleanWebpackPlugin(PACK_PATH, {
         root: __dirname,
