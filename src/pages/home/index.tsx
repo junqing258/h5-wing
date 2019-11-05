@@ -12,9 +12,8 @@ export default function Home() {
   const [time, setTime] = useState(0);
 
   const openModal = () => setVisibleModal(true);
-  const closeModal = () => setVisibleModal(false);
 
-  useEffect(() => {
+  /* useEffect(() => {
     let c = time;
     let tid = setInterval(() => {
       setTime(c+=1);
@@ -24,7 +23,7 @@ export default function Home() {
 
   useEffect(() => {
     document.title = `${time} sec`;
-  }, [time]);
+  }, [time]); */
 
   return (
     <div className="page">
@@ -48,9 +47,10 @@ export default function Home() {
 
       <Modal
         show={visibleModal}
+        setShow={setVisibleModal}
         title="这是自定义title"
-        confirm={closeModal}
-        onClose={closeModal} >
+        onConfirm={()=> {}}
+        onClose={() => {}} >
         这是自定义content
       </Modal>
 
