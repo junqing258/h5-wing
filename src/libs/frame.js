@@ -66,6 +66,7 @@ Frame.prototype.update = function() {
                     ctx.moveTo(this.p_x, this.p_y);
                     ctx[args[0]].apply(ctx, [args[1][0] + this.p_x, args[1][1] + this.p_y]);
                     ctx.stroke();
+                    ctx.closePath();
                     break;
                 default:
                     ctx[args[0]].apply(ctx, args[1]);
@@ -74,7 +75,7 @@ Frame.prototype.update = function() {
 
         }
 
-        ctx.closePath();
+        
     }
 }
 
