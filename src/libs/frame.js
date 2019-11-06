@@ -30,6 +30,8 @@
 
 function Frame(ctx) {
     this.ctx = ctx;
+    this.p_x = 0;
+    this.p_y = 0;
     this.cmds = [];
     this.graphicscmd = [];
 }
@@ -50,12 +52,26 @@ Frame.prototype.update = function() {
     if (this.graphicscmd.length) {
         var ctx = this.ctx;
 
-        ctx.beginPath();
-
         for (var args of this.graphicscmd) {
             var props = args[2];
             props.fillStyle && (ctx.fillStyle = props.fillStyle);
-            ctx[args[0]].apply(ctx, args[1]);
+            props.lineWidth && (ctx.lineWidth = props.lineWidth);
+            switch (args[0]) {
+                case 'fillRect':
+                    var p = args[1];
+                    ctx.fillRect(this.p_x + p[0], this.p_y + p[1], p[2], p[3]);
+                    break;
+                case 'lineTo':
+                    ctx.beginPath();
+                    ctx.moveTo(this.p_x, this.p_y);
+                    ctx[args[0]].apply(ctx, [args[1][0] + this.p_x, args[1][1] + this.p_y]);
+                    ctx.stroke();
+                    break;
+                default:
+                    ctx[args[0]].apply(ctx, args[1]);
+                    break;
+            }
+
         }
 
         ctx.closePath();
@@ -63,7 +79,8 @@ Frame.prototype.update = function() {
 }
 
 Frame.prototype.setPos = function(x, y) {
-
+    this.p_x = x || 0;
+    this.p_y = y || 0;
 };
 
 Frame.prototype.setImage = function(img) {
@@ -73,7 +90,7 @@ Frame.prototype.setImage = function(img) {
 
 
 var childs = [],
-    context;
+    context, ticks = [];
 window.onload = function() {
     var canvas = document.getElementById("canvas"); // 先获取画布
     canvas.width = 800; // 将画布设置为800px宽
@@ -90,13 +107,21 @@ window.onload = function() {
         fillStyle: "green"
     });
 
+    f.drawPath('lineTo', [200, 200], {
+        fillStyle: "#000",
+        lineWidth: 4
+    });
 
-    f.drawPath('fillRect', [200, 200, 200, 200], {
-        fillStyle: "green"
+    // f.drawPath('fillRect', [200, 200, 200, 200], { fillStyle: "green" });
+
+    ticks.push(() => {
+        f.setPos(++f.p_x, ++f.p_y);
     });
 }
 
 function animate() {
     context.clearRect(0, 0, 800, 800);
     childs.forEach(v => v.update());
+    ticks.forEach(v => v());
+    window.requestAnimationFrame(animate);
 }
