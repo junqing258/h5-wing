@@ -8,6 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const WingPlugin = require('./wing-webpack-plugin');
 
 const autoconfig = require('./autoconfig.js');
@@ -25,7 +26,7 @@ module.exports = () => {
   const webpackConfig = {
     mode: process.env.NODE_ENV || 'development',
     entry: {
-      app: path.resolve(__dirname, '../src/main'),
+      app: [path.resolve(__dirname, '../src/main')],
     },
     devtool: !isProd ? 'source-map' : false,
     output: {
@@ -41,41 +42,42 @@ module.exports = () => {
       // new WingPlugin(),
       new ProgressBarPlugin(),
       new CleanWebpackPlugin(PACK_PATH, {
-        root: __dirname,
+        root: path.resolve(__dirname, '../'),
         verbose: true,
         dry: false,
+        exclude: ['dll'],
       }),
       new MiniCssExtractPlugin({
         filename: !isProd ? '[name].css' : '[name].[contenthash:6].css',
         chunkFilename: !isProd ? '[id].css' : '[id].[chunkhash:6].css',
       }),
-      new ManifestPlugin({
-        fileName: 'asset-manifest.json',
+      // new ManifestPlugin({
+      //   fileName: 'asset-manifest.json',
+      // }),
+      new webpack.DllReferencePlugin({
+        context: path.resolve(__dirname, '../'),
+        manifest: require('../dist/dll/vendor.manifest.json'),
+        // name: '../dist/dll/vendor.dll.js',
+        // scope: 'xyz',
+        // sourceType: 'commonjs2',
       }),
       new HtmlWebpackPlugin({
         title: '平安好医生',
         template: './index.ejs',
         filename: 'index.html',
-        minify: isProd
-          ? {
-              minifyCSS: true,
-              minifyJS: false,
-              removeRedundantAttributes: true,
-              removeScriptTypeAttributes: true,
-              removeStyleLinkTypeAttributes: true,
-              collapseWhitespace: true,
-              removeComments: true,
-            }
-          : null,
         inject: true,
         script: {
-          BEACON: `<script src="${autoconfig.BEACON_URL}"></script>`,
-          SENTRY: `<script src="${autoconfig.SENTRY}"></script>`,
+          // vendor: `<script src="${'dll/vendor.dll.js'}"></script>`,
+          // BEACON: `<script src="${autoconfig.BEACON_URL}"></script>`,
+          // SENTRY: `<script src="${autoconfig.SENTRY}"></script>`,
         },
       }),
-      new HtmlWebpackInlineSourcePlugin(),
+      new AddAssetHtmlPlugin({
+        filepath: path.resolve(__dirname, '../dist/dll/*.js'),
+      }),
+      // new HtmlWebpackInlineSourcePlugin(),
     ],
-    optimization: {
+    /* optimization: {
       splitChunks: {
         chunks: 'initial',
         cacheGroups: {
@@ -90,7 +92,7 @@ module.exports = () => {
           },
         },
       },
-    },
+    }, */
     module: {
       rules: [
         {
