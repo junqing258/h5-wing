@@ -5,7 +5,6 @@ const webpack = require('webpack');
 // const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 // const CopyPlugin = require('copy-webpack-plugin');
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const webpackConfig = require('./webpack.config.js')();
 

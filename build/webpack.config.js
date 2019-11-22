@@ -6,6 +6,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
@@ -24,7 +25,7 @@ module.exports = () => {
   });
 
   const webpackConfig = {
-    mode: process.env.NODE_ENV || 'development',
+    mode: isProd ? 'production' : 'development',
     entry: {
       app: [path.resolve(__dirname, '../src/main')],
     },
@@ -55,7 +56,7 @@ module.exports = () => {
       //   fileName: 'asset-manifest.json',
       // }),
       new webpack.DllReferencePlugin({
-        context: path.resolve(__dirname, '../'),
+        context: __dirname,
         manifest: require('../dist/dll/vendor.manifest.json'),
         // name: '../dist/dll/vendor.dll.js',
         // scope: 'xyz',
@@ -67,32 +68,31 @@ module.exports = () => {
         filename: 'index.html',
         inject: true,
         script: {
-          // vendor: `<script src="${'dll/vendor.dll.js'}"></script>`,
           // BEACON: `<script src="${autoconfig.BEACON_URL}"></script>`,
           // SENTRY: `<script src="${autoconfig.SENTRY}"></script>`,
         },
       }),
       new AddAssetHtmlPlugin({
-        filepath: path.resolve(__dirname, '../dist/dll/*.js'),
+        filepath: path.resolve(__dirname, '../dist/dll/*.dll.js'),
       }),
       // new HtmlWebpackInlineSourcePlugin(),
     ],
-    /* optimization: {
-      splitChunks: {
-        chunks: 'initial',
-        cacheGroups: {
-          vendors: {
-            test: /[\\/]node_modules[\\/]/,
-            priority: -10,
-          },
-          default: {
-            minChunks: 2,
-            priority: 20,
-            reuseExistingChunk: true,
-          },
-        },
-      },
-    }, */
+    optimization: {
+      // splitChunks: {
+      //   chunks: 'initial',
+      //   cacheGroups: {
+      //     libs: {
+      //       test: /[\\/]node_modules[\\/]/,
+      //       priority: -10,
+      //     },
+      //     default: {
+      //       minChunks: 2,
+      //       priority: 20,
+      //       reuseExistingChunk: true,
+      //     },
+      //   },
+      // },
+    },
     module: {
       rules: [
         {

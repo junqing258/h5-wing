@@ -41,6 +41,8 @@
   height: 50px;
   position: absolute;
   bottom: 0;
+  font-size: 0;
+  overflow: hidden;
 }
 
 .modal-operator-close, .modal-operator-confirm {
@@ -52,6 +54,7 @@
   opacity: 1;
   color: #fff;
   cursor: pointer;
+  font-size: 18px;
 }
 
 .modal-operator-close {
