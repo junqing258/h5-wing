@@ -1,17 +1,24 @@
 // const glob = require('glob');
-const { resolve } = require('path');
+const path = require('path');
 const chalk = require('chalk');
 const webpack = require('webpack');
+
+const { resolve } = path;
 // const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 // const CopyPlugin = require('copy-webpack-plugin');
-
-const webpackConfig = require('./webpack.config.js')();
+const webpackConfig = require('./webpack.base')();
 
 const args = process.argv.slice(2);
 const useServer = !!args.find(v => v.indexOf('server') > -1);
 
-const compiler = webpack(Object.assign({}, webpackConfig, {}));
+const compiler = webpack(
+  Object.assign({}, webpackConfig, {
+    entry: {
+      app: [path.resolve(__dirname, '../src/main')],
+    },
+  }),
+);
 
 // server
 if (useServer) {

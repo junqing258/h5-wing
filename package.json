@@ -4,15 +4,16 @@
   "description": "h5-wing",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development node ./build/build.js",
+    "dev": "cross-env NODE_ENV=development node ./scripts/build.js",
     "start": "npm run dev server",
-    "server": "cross-env NODE_ENV=test node server/start.js",
-    "build": "npm rebuild node-sass&&cross-env NODE_ENV=production node ./build/build.js",
+    "server": "cross-env NODE_ENV=development node server/start.js",
+    "build": "npm rebuild node-sass&&cross-env NODE_ENV=production node ./scripts/build.js",
+    "build:ssr": "cross-env NODE_ENV=production && webpack --config ./scripts/webpack.server.js",
     "test": "cross-env NODE_ENV=test eslint src/**/*.js && jest --watch",
     "testEslint": "cross-env NODE_ENV=test eslint src/__tests__/**/*.js src/__mocks__/**/*.js",
     "testUpdate": "cross-env NODE_ENV=test eslint src/__tests__/**/*.js src/__mocks__/**/*.js && jest --updateSnapshot",
     "coverage": "cross-env NODE_ENV=test jest --updateSnapshot --coverage",
-    "dll": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.dll.js",
+    "dll": "cross-env NODE_ENV=production webpack --config ./scripts/webpack.config.dll.js",
     "sonar": "cross-env NODE_ENV=test jest --updateSnapshot --coverage; node src/__tests__/sonar.js"
   },
   "repository": {
@@ -80,6 +81,7 @@
     "cookie-parser": "^1.4.4",
     "cross-env": "^5.2.1",
     "css-loader": "^2.1.1",
+    "css-modules-require-hook": "^4.2.3",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "eslint": "^6.1.0",
@@ -130,6 +132,8 @@
     "webpack-hot-middleware": "^2.25.0",
     "webpack-manifest-plugin": "^2.2.0",
     "webpack-md5-hash": "0.0.6",
+    "webpack-merge": "^4.2.2",
+    "webpack-node-externals": "^1.7.2",
     "whatwg-fetch": "^2.0.3",
     "workbox-webpack-plugin": "^4.3.1"
   },

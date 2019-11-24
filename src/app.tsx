@@ -3,9 +3,8 @@ import { Provider } from 'react-redux';
 import { HashRouter, BrowserRouter, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 // import { hot } from 'react-hot-loader/root';
 
-import './scss/app.scss'; 
+
 import store from './store';
-// import { lazyLoad } from 'components/bundle';
 import AsyncComponent from './components/asyncComp/AsyncComponent';
 
 const Home = AsyncComponent(() => import('./pages/home'));

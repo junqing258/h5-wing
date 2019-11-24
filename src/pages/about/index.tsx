@@ -6,7 +6,7 @@ import { increment, decrement, reset } from '@/actions/index';
 
 export function About(props: any) {
   return (
-    <div className="app">
+    <div className="page">
       <header className="app-header">
         <p>
           About { props.counter } and save to reload.
