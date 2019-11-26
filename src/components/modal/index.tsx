@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import './modal.css';
 
-export interface IProps {
+export type IProps = {
   title?: string;
   show: boolean;
   setShow: Function;
@@ -97,7 +97,6 @@ export default class Modal extends PureComponent<IProps, IState> {
           timeout={300}
           onEnter={node => {
             node.style.display = 'block';
-            // hasMask = true;
           }}
           onExited={node => {
             node.style.display = 'none';

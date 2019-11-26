@@ -5,7 +5,8 @@ import React, { useState, useEffect } from 'react';
 import './style.scss';
 import Topbar from '@/components/top/Topbar';
 import { Floor } from '@/components/floor/Floor';
-import Modal from '@/components/modal';
+// import Modal from '@/components/modal';
+
 
 export default function Home() {
   const [visibleModal, setVisibleModal] = useState(false);
@@ -45,14 +46,14 @@ export default function Home() {
         <img src={require('@/assets/quick_start/prod_2.png')} alt="" />
       </Floor>
 
-      <Modal
+      {/* <Modal
         show={visibleModal}
         setShow={setVisibleModal}
         title="这是自定义title"
         onConfirm={()=> {}}
         onClose={() => {}} >
         这是自定义content
-      </Modal>
+      </Modal> */}
 
     </div>
   );

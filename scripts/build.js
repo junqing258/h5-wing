@@ -1,34 +1,24 @@
 // const glob = require('glob');
-const { resolve } = require('path');
+const path = require('path');
 const chalk = require('chalk');
 const webpack = require('webpack');
-const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+
+const { resolve } = path;
+// const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 // const CopyPlugin = require('copy-webpack-plugin');
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-
-const webpackConfig = require('./webpack.config.js')();
+const webpackConfig = require('./webpack.base')();
 
 const args = process.argv.slice(2);
 const useServer = !!args.find(v => v.indexOf('server') > -1);
 
-const compiler = webpack(Object.assign({}, webpackConfig, {}));
-
-// compiler.apply(
-//   new ProgressPlugin((percentage, msg, current, active, modulepath) => {
-//     if (process.stdout.isTTY && percentage < 1) {
-//       process.stdout.cursorTo(0);
-//       modulepath = modulepath ? ' …' + modulepath.substr(modulepath.length - 30) : '';
-//       current = current ? ' ' + current : '';
-//       active = active ? ' ' + active : '';
-//       process.stdout.write((percentage * 100).toFixed(0) + '% ' + msg + current + active + modulepath + ' ');
-//       process.stdout.clearLine(1);
-//     } else if (percentage === 1) {
-//       process.stdout.write('\n');
-//       console.log('webpack: done.');
-//     }
-//   }),
-// );
+const compiler = webpack(
+  Object.assign({}, webpackConfig, {
+    entry: {
+      app: [path.resolve(__dirname, '../src/main')],
+    },
+  }),
+);
 
 // server
 if (useServer) {
@@ -60,7 +50,12 @@ if (useServer) {
   const port = 8080;
   app.listen(port, function(err) {
     if (err) return console.log(err);
-    console.log('listen at', chalk.bgGreen(`http://localhost:${port}`));
+  });
+
+  compiler.hooks.done.tap('BuildStatsPlugin', stats => {
+    setTimeout(() => {
+      console.log('listen at', chalk.bgGreen(`http://localhost:${port}`));
+    }, 0);
   });
 } else {
   compiler.run((err, stats) => {

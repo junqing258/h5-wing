@@ -27,7 +27,7 @@
     "jsx": "preserve"
   },
   "include": [
-    "src/**/*"
+    "src/**/*", "src/server", "src/server/server.js"
   ],
   "exclude": [
     "dist",

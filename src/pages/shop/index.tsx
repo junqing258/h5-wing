@@ -1,8 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-interface IProps {};
-interface IState {};
+export type IProps = {};
+export type IState = {};
 
 export default class Shop extends Component<IProps, IState> {
 
@@ -23,7 +23,7 @@ export default class Shop extends Component<IProps, IState> {
   }
   // componentWillReceiveProps/UNSAFE_componentWillReceiveProps
 
-  shouldComponentUpdate(nextProps: IProps, nextState: IState) {
+  shouldComponentUpdate(nextProps: IProps, nextState: IState): boolean {
     return true;
   }
 
@@ -31,7 +31,7 @@ export default class Shop extends Component<IProps, IState> {
 
   // render
 
-  getSnapshotBeforeUpdate(prevProps: IProps, prevState: IState) {
+  getSnapshotBeforeUpdate(prevProps: IProps, prevState: IState): string {
     console.log('[getSnapshotBeforeUpdate]', prevProps, prevState);
     // if (prevProps.list.length < this.props.list.length) {
     //   const list = this.listRef.current;
@@ -53,7 +53,7 @@ export default class Shop extends Component<IProps, IState> {
     clearTimeout(this.timer);
   }
 
-  componentDidUpdate(prevProps: IProps, prevState: IState, snapshot: any) {
+  componentDidUpdate(prevProps: IProps, prevState: IState, snapshot: string) {
     console.log('[componentDidUpdate]', prevProps, prevState, snapshot);
   }
 
