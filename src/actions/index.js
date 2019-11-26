@@ -1,5 +1,7 @@
 import { createActions, createAction } from 'redux-actions';
 import { RESET, INCREMENT, DECREMENT } from './actionTypes';
+import camelCase from 'redux-actions/es/utils/camelCase';
+
 
 export const { increment, decrement } = createActions({
   [INCREMENT]: (amount = 1) => ({ amount: amount }),
