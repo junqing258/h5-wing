@@ -2,6 +2,7 @@
 const path = require('path');
 const chalk = require('chalk');
 const webpack = require('webpack');
+const history = require('connect-history-api-fallback');
 
 const { resolve } = path;
 // const ProgressPlugin = require('webpack/lib/ProgressPlugin');
@@ -29,24 +30,26 @@ if (useServer) {
   /* dev Server */
   const app = express();
   // 用 webpack-dev-middleware 启动 webpack 编译
-  app.use(
-    webpackDevMiddleware(compiler, {
-      publicPath: webpackConfig.output.publicPath,
-      overlay: true,
-      hot: true,
-    }),
-  );
+  const devMiddleware = webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.path,
+    overlay: true,
+    hot: true,
+  });
+  app.use(devMiddleware);
 
   // 使用 webpack-hot-middleware 支持热更新
   app.use(
     webpackHotMiddleware(compiler, {
-      publicPath: webpackConfig.output.publicPath,
+      publicPath: webpackConfig.output.path,
       noInfo: true,
     }),
   );
 
   // 添加静态资源拦截转发
   app.use(express.static(resolve(__dirname, '../dist')));
+  // send the user to index html page inspite of the url
+  app.use(history());
+
   const port = 8080;
   app.listen(port, function(err) {
     if (err) return console.log(err);

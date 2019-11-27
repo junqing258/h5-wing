@@ -1,6 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import Topbar from '@/components/top/Topbar';
+
 export type IProps = {};
 export type IState = {};
 
@@ -15,10 +17,11 @@ export default class Shop extends Component<IProps, IState> {
 
   constructor(props: IProps) {
     super(props);
+    console.log('#Shop#[constructor]');
   }
 
   static getDerivedStateFromProps(nextProps: IProps, state: IState) {
-    console.log('[getDerivedStateFromProps]', nextProps, state);
+    console.log('#Shop#[getDerivedStateFromProps]', nextProps, state);
     return null;
   }
   // componentWillReceiveProps/UNSAFE_componentWillReceiveProps
@@ -32,7 +35,7 @@ export default class Shop extends Component<IProps, IState> {
   // render
 
   getSnapshotBeforeUpdate(prevProps: IProps, prevState: IState): string {
-    console.log('[getSnapshotBeforeUpdate]', prevProps, prevState);
+    console.log('#Shop#[getSnapshotBeforeUpdate]', prevProps, prevState);
     // if (prevProps.list.length < this.props.list.length) {
     //   const list = this.listRef.current;
     //   return list.scrollHeight - list.scrollTop;
@@ -43,7 +46,7 @@ export default class Shop extends Component<IProps, IState> {
   // componentWillMount/UNSAFE_componentWillMount
 
   componentDidMount() {
-    console.log('[componentDidUpdate]');
+    console.log('#Shop#[componentDidMount]');
     this.timer = setTimeout(() => {
       this.setState({ name: 'page2' });
     }, 1000);
@@ -54,12 +57,16 @@ export default class Shop extends Component<IProps, IState> {
   }
 
   componentDidUpdate(prevProps: IProps, prevState: IState, snapshot: string) {
-    console.log('[componentDidUpdate]', prevProps, prevState, snapshot);
+    // console.log('[componentDidUpdate]', prevProps, prevState, snapshot);
   }
 
   render() {
+    console.log('#Shop#[render]');
     return (
-      <h1>shop {this.state.name}</h1>
+      <>
+        <Topbar title="健康医疗"/>
+        <h1>shop {this.state.name}</h1>
+      </>
     );
   }
 

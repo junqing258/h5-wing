@@ -4,12 +4,12 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import './scss/app.scss';
-// import App from './app';
-// ReactDOM.render(<App />, document.getElementById('root'));
+import App from './app';
+ReactDOM.render(<App />, document.getElementById('root'));
 
-import routes from './routes';
-const App = () => <BrowserRouter>{routes}</BrowserRouter>;
-ReactDOM.hydrate(<App />, document.getElementById('root'));
+// import routes from './routes';
+// const App = () => <BrowserRouter>{routes}</BrowserRouter>;
+// ReactDOM.hydrate(<App />, document.getElementById('root'));
 
 /* if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
