@@ -20,3 +20,12 @@
 body {
   font-family: "-apple-system", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
 }
+
+nav, .page {
+  background-color: #efeff0;
+  width: 750px; 
+  margin: auto;
+}
+.page {
+  min-height: 100vh;
+}

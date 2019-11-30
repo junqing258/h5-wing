@@ -14,12 +14,12 @@ const About = AsyncComponent(() => import('./pages/about'));
 const App: React.FC = () => {
   return(
     <Provider store={store()}>
-      <BrowserRouter>
-        <div className="nav" style={{padding: "10px"}}>
+      <HashRouter>
+        <nav className="nav" style={{padding: "10px"}}>
           <NavLink to="/" activeClassName="selected" exact>首页</NavLink>&nbsp;
           <NavLink to="/shop" activeClassName="" exact>商城</NavLink>&nbsp;
           <NavLink to="/about" activeClassName="" exact>关于</NavLink>
-        </div>
+        </nav>
         <Switch>
           <Route path="/" render={props => (
             <Switch>
@@ -32,7 +32,7 @@ const App: React.FC = () => {
           />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   );
 };

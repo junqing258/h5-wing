@@ -63,10 +63,10 @@ export default class Shop extends Component<IProps, IState> {
   render() {
     console.log('#Shop#[render]');
     return (
-      <>
+      <div className="page">
         <Topbar title="健康医疗"/>
         <h1>shop {this.state.name}</h1>
-      </>
+      </div>
     );
   }
 

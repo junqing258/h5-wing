@@ -22,7 +22,7 @@ module.exports = () => {
     entry: {},
     output: {
       pathinfo: false,
-      publicPath: 'dist/',
+      // publicPath: 'dist/',
       path: PACK_PATH,
       filename: !isProd ? '[name].js' : '[name].[hash:6].js',
       chunkFilename: !isProd ? '[id].[name].js' : '[id].[name].[chunkhash:6].js',
