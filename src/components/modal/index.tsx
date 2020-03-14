@@ -17,7 +17,7 @@ export interface IState {
   visible: boolean;
 }
 
-export default class Modal extends PureComponent<IProps, IState> {
+export class Modal extends PureComponent<IProps, IState> {
   boxDOM: any;
 
   state = {
@@ -108,3 +108,41 @@ export default class Modal extends PureComponent<IProps, IState> {
     );
   }
 }
+
+
+/*export const withModal = (WrappedComponent: React.Component) => {
+
+  return class ModalHOC extends React.Component {
+
+    constructor(props) {
+      super(props);
+    }
+
+    show() {
+
+    }
+
+    close() {
+
+    }
+
+    render() {
+      return (
+        <Modal
+          show={visibleModal}
+          setShow={setVisibleModal}
+          title="这是自定义title"
+          onConfirm={()=> {}}
+          onClose={() => {}} 
+        >
+          {{WrappedComponent}}
+        </Modal>
+     )
+    }
+
+  }
+}   */
+
+    
+ 
+  
