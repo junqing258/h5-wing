@@ -4,19 +4,23 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-// const render = require('./render');
-const { render } = require('../../dist/ssr');
+const { render } = require('./render');
+// const { render } = require('../../dist/ssr');
 
 const server = express();
 server.use(cookieParser());
 server.use(bodyParser.json());
 
-server.use('/dist', express.static(path.resolve(__dirname, '../../dist/')));
+server.use('/dist', express.static(path.resolve(__dirname, '../dist/')));
+server.use('/assets', express.static(path.resolve(__dirname, '../dist/assets')));
 
 server.use((req, res, next) => {
-  if (/\/(dist|assets)\//.test(req.url) || /\.(js|css)$/.test(req.url)) {
+  if (/\/(dist|assets)\//.test(req.url)) {
     console.log('', req.url);
     return next();
+  }
+  if (/\.(js|css)$/.test(req.url)) {
+    return res.sendFile(path.resolve(__dirname, `../dist/${req.url}`));
   }
   const pageHtml = `<html>
     <head>

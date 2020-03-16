@@ -5,8 +5,8 @@ import thunk from 'redux-thunk';
 import { renderToString } from 'react-dom/server';
 
 import { StaticRouter } from 'react-router-dom';
-import reducers from '../reducer/index';
-import routes from '../routes';
+import reducers from '../src/reducer/index';
+import routes from '../src/routes';
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 

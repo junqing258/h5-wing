@@ -1,10 +1,11 @@
 const path = require('path');
-const babelConfig = require('../../scripts/babel.config');
+const babelConfig = require('../scripts/babel.config');
 
 require('@babel/register')({
   ...babelConfig,
   extensions: ['.ts', '.tsx', '.jsx', '.js'],
   cache: true,
+  ignore: null,
 });
 // require('@babel/polyfill');
 

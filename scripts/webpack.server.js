@@ -7,7 +7,7 @@ const serverConfig = {
   // mode: 'production',
   target: 'node', // 构建目标为 node，在服务器端不需要将 require 的包打包
   entry: {
-    ssr: [path.resolve(__dirname, '../src/server/render.tsx')],
+    ssr: [path.resolve(__dirname, '../server/render.tsx')],
   },
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
