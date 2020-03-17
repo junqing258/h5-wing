@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 const path = require('path');
 const webpack = require('webpack');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const WebpackBar = require('webpackbar');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -30,7 +30,7 @@ module.exports = () => {
     watch: !isProd,
     plugins: [
       definePlugin,
-      new ProgressBarPlugin(),
+      new WebpackBar(),
       // new CleanWebpackPlugin(PACK_PATH, {
       //   root: path.resolve(__dirname, '../'),
       //   verbose: true,

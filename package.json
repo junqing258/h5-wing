@@ -117,7 +117,6 @@
     "postcss-plugin-px2rem": "^0.8.1",
     "postcss-scss": "^2.0.0",
     "prettier": "^1.19.1",
-    "progress-bar-webpack-plugin": "^1.12.1",
     "react-hot-loader": "^4.12.20",
     "react-test-renderer": "^16.13.0",
     "sass-loader": "^6.0.7",
@@ -134,6 +133,7 @@
     "webpack-md5-hash": "0.0.6",
     "webpack-merge": "^4.2.2",
     "webpack-node-externals": "^1.7.2",
+    "webpackbar": "^4.0.0",
     "whatwg-fetch": "^2.0.3",
     "workbox-webpack-plugin": "^4.3.1"
   },
