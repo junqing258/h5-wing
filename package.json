@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development node ./scripts/build.js",
     "start": "npm run dev server",
-    "server": "cross-env NODE_ENV=development node src/server/start.js",
+    "server": "cross-env NODE_ENV=development node ./server/start.js",
     "build": "npm rebuild node-sass&&cross-env NODE_ENV=production node ./scripts/build.js",
     "build:ssr": "cross-env NODE_ENV=production && webpack --config ./scripts/webpack.server.js",
     "test": "cross-env NODE_ENV=test eslint src/**/*.js && jest --watch",
