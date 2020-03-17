@@ -30,7 +30,7 @@ module.exports = () => {
     watch: !isProd,
     plugins: [
       definePlugin,
-      new WebpackBar(),
+      new WebpackBar({ color: '#03a9f4' }),
       // new CleanWebpackPlugin(PACK_PATH, {
       //   root: path.resolve(__dirname, '../'),
       //   verbose: true,
