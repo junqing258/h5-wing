@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { increment, decrement, reset } from '@/actions/index';
 
 export function About(props: any) {
-  const { actions } = props;
+  const { actions, history } = props;
   return (
     <div className="page">
       <header className="app-header">
