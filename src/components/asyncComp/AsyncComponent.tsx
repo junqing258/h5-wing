@@ -13,7 +13,7 @@ const AsyncComponent = (loadComponent: Function, loaddingComponent: any = null) 
       Component: null
     };
 
-    public componentWillMount() {
+    public componentDidMount() {
       if (this.hasLoadedComponent()) {
         return;
       }
