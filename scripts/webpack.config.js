@@ -37,6 +37,7 @@ module.exports = () => {
       definePlugin,
       // new WebpackMd5Hash(),
       new ProgressBarPlugin(),
+      new webpack.HotModuleReplacementPlugin(),
       new CleanWebpackPlugin(PACK_PATH, {
         root: __dirname,
         verbose: true,
@@ -47,20 +48,18 @@ module.exports = () => {
         chunkFilename: !isProd ? '[id].css' : '[id].[chunkhash:6].css',
       }),
       new HtmlWebpackPlugin({
-        title: '平安好医生',
+        title: 'Web App',
         template: './index.ejs',
         filename: 'index.html',
-        minify: isProd
-          ? {
-              minifyCSS: true,
-              minifyJS: false,
-              removeRedundantAttributes: true,
-              removeScriptTypeAttributes: true,
-              removeStyleLinkTypeAttributes: true,
-              collapseWhitespace: true,
-              removeComments: true,
-            }
-          : null,
+        minify: isProd ? {
+          minifyCSS: true,
+          minifyJS: false,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          collapseWhitespace: true,
+          removeComments: true,
+        } : null,
         inject: true,
         script: {
           BEACON: `<script src="${autoconfig.BEACON_URL}"></script>`,
@@ -68,7 +67,7 @@ module.exports = () => {
         },
       }),
       new HtmlWebpackInlineSourcePlugin(),
-    ],
+    ].filter(Boolean),
     optimization: {
       splitChunks: {
         chunks: 'initial',
@@ -86,63 +85,62 @@ module.exports = () => {
       },
     },
     module: {
-      rules: [
-        {
-          test: /\.(jsx?|tsx?)$/,
-          use: ['babel-loader'],
-          include: path.join(__dirname, '../src'),
-          // options: {
-          //   configFile: resolve('babel.config.js')
-          // },
-        },
-        {
-          test: /\.s?css$/,
-          use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-              options: {
-                hmr: !isProd,
-              },
+      rules: [{
+        test: /\.(jsx?|tsx?)$/,
+        use: ['babel-loader'],
+        include: path.join(__dirname, '../src'),
+        // options: {
+        //   configFile: resolve('babel.config.js')
+        // },
+      }, {
+        test: /\.s?css$/,
+        use: [{
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: !isProd,
             },
-            {
-              loader: 'css-loader',
-              options: {
-                modules: false,
-                localIdentName: '[name]__[local]--[hash:base64:5]',
-              },
+          }, {
+            loader: 'css-loader',
+            options: {
+              modules: false,
+              localIdentName: '[name]__[local]--[hash:base64:5]',
             },
-            'postcss-loader',
-            'sass-loader',
-          ],
-        },
-        {
-          test: /\.(png|jpg|jpeg|gif)$/,
-          exclude: /node_modules/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                // 8192 = 1024 * 8 小于等于8k的转换成 base64
-                limit: 8192,
-                name: !isProd ? './assets/[name].[ext]' : './assets/[name].[contenthash:6].[ext]',
-              },
+          }, {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                require('autoprefixer')(),
+                require('postcss-plugin-px2rem')({
+                  rootValue: 75,
+                  exclude: /(node_module)/
+                })
+              ],
             },
-          ],
-        },
-        {
-          test: /\.(woff|woff2|svg|eot|ttf)$/,
-          exclude: /node_modules/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 10240,
-                name: !isProd ? './assets/fonts/[name].[ext]' : './assets/fonts/[name].[contenthash:6].[ext]',
-              },
-            },
-          ],
-        },
-      ],
+          },
+          'sass-loader',
+        ],
+      }, {
+        test: /\.(png|jpg|jpeg|gif)$/,
+        exclude: /node_modules/,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            // 8192 = 1024 * 8 小于等于8k的转换成 base64
+            limit: 8192,
+            name: !isProd ? './assets/[name].[ext]' : './assets/[name].[contenthash:6].[ext]',
+          },
+        }, ],
+      }, {
+        test: /\.(woff|woff2|svg|eot|ttf)$/,
+        exclude: /node_modules/,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 10240,
+            name: !isProd ? './assets/fonts/[name].[ext]' : './assets/fonts/[name].[contenthash:6].[ext]',
+          },
+        }, ],
+      }, ],
     },
     devServer: {
       hot: true,
@@ -160,9 +158,7 @@ module.exports = () => {
     },
   };
 
-  if (!isProd) {
-    webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
-  } else {
+  if (isProd) {
     webpackConfig.plugins.push(
       new WorkboxPlugin.GenerateSW({
         // 这些选项帮助快速启用 ServiceWorkers

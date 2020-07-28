@@ -1,12 +1,12 @@
 
 <% const APP_VERSION = require("fs").readFileSync("./VERSION", "utf-8").replace(/\r|\n/ig, "") %>
-
+<% const isServer = htmlWebpackPlugin === undefined %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <meta name="keywords" content="平安好医生、平安好医生健康商城">
-    <meta name="description" content="平安好医生，是中国平安旗下全资子公司平安健康推出的在线健康咨询及健康管理网站，以医生资源为核心，为用户提供一站式挂号及健康问诊服务。">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta name="full-screen" content="true">
@@ -22,6 +22,12 @@
 </head>
 <body>
     <div id="root"></div>
+    <% if (isServer) { %>
+        <%- 
+        <% if (isIE) { %> <script type="text/javascript" src="/scripts/polyfill.min.js"></script> <% } %>
+        %>
+    <% } %>     
+
     <% if (!__SERVE__) { %>
         <script>
             // 性能监控
