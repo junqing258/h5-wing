@@ -2,13 +2,18 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-// const WebpackMd5Hash = require('webpack-md5-hash');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
+const NPMPackage = require('../package.json');
 const autoconfig = require('./autoconfig.js');
+
+const {
+  name: packageName
+} = NPMPackage;
+
 
 const PACK_PATH = path.join(__dirname, './dist');
 
@@ -31,11 +36,13 @@ module.exports = () => {
       path: PACK_PATH,
       filename: !isProd ? '[name].js?[hash:6]' : '[name].[chunkhash:6].js',
       chunkFilename: 'js/[id].[name].chunk.js',
+      library: `${packageName}-[name]`,
+      libraryTarget: 'umd',
+      jsonpFunction: `webpackJsonp_${packageName}`,
     },
     watch: !isProd,
     plugins: [
       definePlugin,
-      // new WebpackMd5Hash(),
       new ProgressBarPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new CleanWebpackPlugin(PACK_PATH, {

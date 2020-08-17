@@ -23,9 +23,7 @@
 <body>
     <div id="root"></div>
     <% if (isServer) { %>
-        <%- 
         <% if (isIE) { %> <script type="text/javascript" src="/scripts/polyfill.min.js"></script> <% } %>
-        %>
     <% } %>     
 
     <% if (!__SERVE__) { %>

@@ -7,7 +7,7 @@ const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 // const CopyPlugin = require('copy-webpack-plugin');
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const webpackConfig = require('./webpack.config.js.js')();
+const webpackConfig = require('./webpack.config')();
 
 const args = process.argv.slice(2);
 const useServer = !!args.find(v => v.indexOf('server') > -1);
@@ -33,11 +33,13 @@ compiler.apply(
 // server
 if (useServer) {
   const express = require('express');
+  const cors = require('cors');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
 
   /* dev Server */
   const app = express();
+  app.use(cors());
   // 用 webpack-dev-middleware 启动 webpack 编译
   app.use(
     webpackDevMiddleware(compiler, {
@@ -57,7 +59,7 @@ if (useServer) {
 
   // 添加静态资源拦截转发
   app.use(express.static(resolve(__dirname, '../dist')));
-  const port = 8080;
+  const port = 7002;
   app.listen(port, function(err) {
     if (err) return console.log(err);
     console.log('listen at', chalk.bgGreen(`http://localhost:${port}`));

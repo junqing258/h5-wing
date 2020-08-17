@@ -14,18 +14,6 @@ export default function Home() {
   const openModal = () => setVisibleModal(true);
   const closeModal = () => setVisibleModal(false);
 
-  useEffect(() => {
-    let c = time;
-    let tid = setInterval(() => {
-      setTime(c+=1);
-    }, 1000);
-    return () => clearInterval(tid); 
-  }, []);
-
-  useEffect(() => {
-    document.title = `${time} sec`;
-  }, [time]);
-
   return (
     <div className="page">
       <Topbar title="健康医疗"/>
