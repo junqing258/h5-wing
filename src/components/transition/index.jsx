@@ -1,5 +1,4 @@
 import React from 'react';
-// 这里引入classnames处理类名的拼接
 import classnames from 'classnames';
 
 class Transition extends React.Component {

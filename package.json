@@ -13,7 +13,6 @@
     "testEslint": "cross-env NODE_ENV=test eslint src/__tests__/**/*.js src/__mocks__/**/*.js",
     "testUpdate": "cross-env NODE_ENV=test eslint src/__tests__/**/*.js src/__mocks__/**/*.js && jest --updateSnapshot",
     "coverage": "cross-env NODE_ENV=test jest --updateSnapshot --coverage",
-    "dll": "cross-env NODE_ENV=production webpack --config ./scripts/webpack.config.dll.js",
     "sonar": "cross-env NODE_ENV=test jest --updateSnapshot --coverage; node src/__tests__/sonar.js"
   },
   "repository": {
@@ -22,7 +21,6 @@
   "keywords": [
     "h5-wing"
   ],
-  "author": "junqing 1551486328@qq.com",
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.8.7",
@@ -39,7 +37,8 @@
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "whatwg-fetch": "^2.0.3",
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -134,7 +133,6 @@
     "webpack-merge": "^4.2.2",
     "webpack-node-externals": "^1.7.2",
     "webpackbar": "^4.0.0",
-    "whatwg-fetch": "^2.0.3",
     "workbox-webpack-plugin": "^4.3.1"
   },
   "browserslist": {
